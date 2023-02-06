@@ -1,7 +1,3 @@
-local function r(n)
-    return math.Round(n, 0)
-end
-
 TableVec = {}
 TableAng = {}
 
@@ -123,12 +119,14 @@ concommand.Add('spawn_add', function(pl)
 
     pl:PrintMessage(HUD_PRINTTALK, "Точка Спавна Добавленна!")
     local pos = pl:GetPos()
-    local ang = pl:GetAngles()
-    local v = (Vector(r(pos.x), r(pos.y), r(pos.z)))
-    local a = (Angle(r(ang.x), r(ang.y), r(ang.z)))
+    local ang = pl:EyeAngles()
+    local v = (Vector(pos.x, pos.y, pos.z))
+    local a = (Angle(ang.x, ang.y, ang.z))
     TableVec[#TableVec + 1] = v
     TableAng[#TableAng + 1] = a
-    SQLQuery("INSERT INTO players_spawn_pos(map,mapid,x,y,z,ax,ay,az) VALUES('" .. game.GetMap() .. "'," .. Mapid_add() .. ',' .. r(pos.x) .. ',' .. r(pos.y) .. ',' .. r(pos.z) .. ',' .. r(ang.x) .. ',' .. r(ang.y) .. ',' .. r(ang.z) .. ");")
+	
+
+    SQLQuery("INSERT INTO players_spawn_pos(map,mapid,x,y,z,ax,ay,az) VALUES('" .. game.GetMap() .. "'," .. Mapid_add() .. ',' .. pos.x .. ',' .. pos.y .. ',' .. pos.z .. ',' .. ang.x .. ',' .. ang.y .. ',' .. ang.z .. ");")
     --LoadSpawnPos()
     ReloadSpawnHud()
 end)
@@ -206,5 +204,5 @@ hook.Add('PlayerSpawn', 'Spawn_Pos', function(ply)
         ply:SetEyeAngles(selecta)
         p = nil
     end
-	
+
 end)
