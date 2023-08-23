@@ -1,4 +1,6 @@
 {
-	"title": "Spawn Pos|Angle ",
-	"type": "tool"
+  "title": "Spawn Pos|Angle ",
+  "type": "tool",
+  "tags": [],
+  "ignore": []
 }
